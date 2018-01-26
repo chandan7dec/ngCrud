@@ -13,7 +13,7 @@ export class CreateEmployeeComponent implements OnInit {
   // cotactPreference= 'email';
   // isActive = true;
   // department = 3;
-
+  previewPhoto = false;
   datePickerConfig: Partial<BsDatepickerConfig>;
 
     departments: Department[] = [
@@ -31,6 +31,10 @@ export class CreateEmployeeComponent implements OnInit {
       maxDate: new Date(2018, 11, 31),
       dateInputFormat: 'DD/MM/YYYY'
       });
+   }
+
+   togglePhotoPreview() {
+    this.previewPhoto = !this.previewPhoto;
    }
 
   ngOnInit() {
