@@ -1,4 +1,4 @@
-<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employee)" >
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee()" >
 <div class="panel panel-primary" >
   <div class="panel-heading">
     <h3 class="panel-title">Create Employee</h3>
@@ -75,25 +75,32 @@
        </span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" [class.has-error]="isActive.touched && isActive.invalid" >
       <div class="form-control">
-        <label class="checkbox-inline">
-          <input type="checkbox"  name="isActive"  [(ngModel)]="employee.isActive"  >
+        <label class="checkbox-inline control-label">
+          <input type="checkbox"  name="isActive"  [(ngModel)]="employee.isActive" required #isActive="ngModel" >
           Is Active
         </label>        
-      </div>        
+      </div> 
+      <span class="help-block" *ngIf="isActive.touched && isActive.errors?.required" >
+        Is Active is required
+      </span>       
     </div>
 
-    <div class="form-group" >
-        <label  for="department">          
+    <div class="form-group" [class.has-error]="department.touched && department.invalid" >
+        <label  for="department" class="control-label">          
           Department
         </label> 
-        <select id="department"  name="department"  [(ngModel)]="employee.department" class="form-control" > 
+        <select id="department"  name="department"  [(ngModel)]="employee.department" class="form-control" required #department="ngModel"> 
+          <option ngValue="-1">Select Department</option>
             <option *ngFor = "let dept of departments" [value]="dept.id">
                 {{dept.name}}
              </option>
              
-        </select>      
+        </select>
+        <span class="help-block" *ngIf="department.touched && department.errors?.required" >
+          Department is required
+        </span>   
     </div>
 
     <div class="row">
